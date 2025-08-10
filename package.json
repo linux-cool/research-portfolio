@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/research-portfolio.git"
+    "url": "git+https://github.com/linux-cool/research-portfolio.git"
   },
   "keywords": [
     "portfolio",
@@ -25,9 +25,9 @@
   "author": "Your Name <your.email@example.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yourusername/research-portfolio/issues"
+    "url": "https://github.com/linux-cool/research-portfolio/issues"
   },
-  "homepage": "https://yourusername.github.io/research-portfolio/",
+  "homepage": "https://linux-cool.github.io/research-portfolio/",
   "engines": {
     "node": ">=12.0.0"
   },
