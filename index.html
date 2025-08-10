@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究项目展示 - Research Portfolio</title>
+    <meta name="description" content="个人研究项目展示网站，包含各种研究领域的项目介绍和成果展示">
+    <meta name="keywords" content="研究项目,学术展示,项目作品集,科研成果,个人网站">
+    <meta name="author" content="Research Portfolio">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/research-portfolio/">
+    <meta property="og:title" content="研究项目展示 - Research Portfolio">
+    <meta property="og:description" content="个人研究项目展示网站，包含各种研究领域的项目介绍和成果展示">
+    <meta property="og:image" content="https://yourusername.github.io/research-portfolio/images/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourusername.github.io/research-portfolio/">
+    <meta property="twitter:title" content="研究项目展示 - Research Portfolio">
+    <meta property="twitter:description" content="个人研究项目展示网站，包含各种研究领域的项目介绍和成果展示">
+    <meta property="twitter:image" content="https://yourusername.github.io/research-portfolio/images/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="manifest" href="images/site.webmanifest">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>Research Portfolio</h1>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="#home" class="nav-link">首页</a>
+                    <a href="#projects" class="nav-link">项目</a>
+                    <a href="#about" class="nav-link">关于</a>
+                    <a href="#contact" class="nav-link">联系</a>
+                </div>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">欢迎来到我的研究世界</h1>
+                <p class="hero-subtitle">探索创新思维，分享研究成果，连接知识边界</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="project-count">0</span>
+                        <span class="stat-label">研究项目</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="category-count">0</span>
+                        <span class="stat-label">研究领域</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="year-count">0</span>
+                        <span class="stat-label">研究年限</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="搜索项目..." class="search-input">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="filter-container">
+                    <select id="category-filter" class="filter-select">
+                        <option value="">所有领域</option>
+                    </select>
+                    <select id="year-filter" class="filter-select">
+                        <option value="">所有年份</option>
+                    </select>
+                    <button id="clear-filters" class="clear-btn">清除筛选</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>研究项目</h2>
+                <p>探索我在各个领域的研究成果和项目经验</p>
+            </div>
+            <div class="projects-grid" id="projects-grid">
+                <!-- Projects will be dynamically loaded here -->
+            </div>
+            <div class="no-results" id="no-results" style="display: none;">
+                <p>没有找到匹配的项目</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>关于我</h2>
+                <p>了解我的研究背景和学术兴趣</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>我是一名专注于多领域研究的学者，致力于探索知识的边界和创新的可能性。通过跨学科的方法，我尝试解决复杂的问题并推动学术发展。</p>
+                    <p>我的研究涵盖了多个领域，包括但不限于：</p>
+                    <ul class="research-areas">
+                        <li><i class="fas fa-microscope"></i> 科学研究</li>
+                        <li><i class="fas fa-laptop-code"></i> 技术开发</li>
+                        <li><i class="fas fa-chart-line"></i> 数据分析</li>
+                        <li><i class="fas fa-lightbulb"></i> 创新设计</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>联系我</h2>
+                <p>如果您对我的研究感兴趣，欢迎联系交流</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email: research@example.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub: github.com/yourusername</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <span>LinkedIn: linkedin.com/in/yourprofile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Research Portfolio. All rights reserved.</p>
+                <p>Built with ❤️ for knowledge sharing</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

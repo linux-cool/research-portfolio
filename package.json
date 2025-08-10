@@ -1,0 +1,41 @@
+{
+  "name": "research-portfolio",
+  "version": "1.0.0",
+  "description": "个人研究项目展示网站 - Personal Research Portfolio Website",
+  "main": "index.html",
+  "scripts": {
+    "start": "node serve.js",
+    "serve": "node serve.js",
+    "dev": "node serve.js 3000",
+    "build": "echo 'This is a static website, no build process needed'",
+    "deploy": "echo 'Please follow the deployment guide in DEPLOYMENT.md'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/research-portfolio.git"
+  },
+  "keywords": [
+    "portfolio",
+    "research",
+    "academic",
+    "showcase",
+    "static-website",
+    "github-pages"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/research-portfolio/issues"
+  },
+  "homepage": "https://yourusername.github.io/research-portfolio/",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "devDependencies": {},
+  "dependencies": {}
+}
