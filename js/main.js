@@ -266,9 +266,9 @@ class ResearchPortfolio {
                             查看详情
                         </button>
                         ${project.folder ? `
-                            <button class="btn btn-secondary" onclick="portfolio.openProjectFolder('${project.folder}')">
-                                <span class="btn-icon">📁</span>
-                                打开文件夹
+                            <button class="btn btn-secondary" onclick="portfolio.viewProjectContent('${project.folder}')">
+                                <span class="btn-icon">📖</span>
+                                查看内容
                             </button>
                         ` : ''}
                     </div>
@@ -298,9 +298,9 @@ class ResearchPortfolio {
                 </div>
                 <div class="project-actions-modal">
                     ${project.folder ? `
-                        <button class="btn btn-primary" onclick="portfolio.openProjectFolder('${project.folder}')">
-                            <span class="btn-icon">📁</span>
-                            打开项目文件夹
+                        <button class="btn btn-primary" onclick="portfolio.viewProjectContent('${project.folder}')">
+                            <span class="btn-icon">📖</span>
+                            查看项目内容
                         </button>
                     ` : ''}
                     <button class="btn btn-secondary" onclick="portfolio.closeModal()">
@@ -324,16 +324,16 @@ class ResearchPortfolio {
         if (yearCount) yearCount.textContent = [...new Set(this.projects.map(p => p.year))].length;
     }
 
-    openProjectFolder(folderName) {
+    viewProjectContent(folderName) {
         // 构建文件夹路径
         const folderPath = `projects/${folderName}`;
         
-        // 检查文件夹是否存在
+        // 检查文件夹是否存在并显示内容
         fetch(folderPath + '/README.md')
             .then(response => {
                 if (response.ok) {
-                    // 如果文件夹存在，尝试打开
-                    this.navigateToFolder(folderPath);
+                    // 如果文件夹存在，显示项目内容
+                    this.showProjectContent(folderPath, folderName);
                 } else {
                     // 如果文件夹不存在，显示提示
                     this.showFolderNotFoundMessage(folderName);
@@ -345,35 +345,94 @@ class ResearchPortfolio {
             });
     }
     
-    navigateToFolder(folderPath) {
-        try {
-            // 尝试使用文件协议打开文件夹
-            // 注意：由于浏览器安全限制，直接打开本地文件夹可能受限
-            // 这里我们提供多种方式供用户选择
-            
-            const message = `
-                <div class="folder-navigation">
-                    <h3>📁 打开文件夹: ${folderPath.split('/').pop()}</h3>
-                    <p>由于浏览器安全限制，无法直接打开本地文件夹。请选择以下方式之一：</p>
-                    <div class="navigation-options">
-                        <button class="btn btn-primary" onclick="portfolio.copyFolderPath('${folderPath}')">
-                            📋 复制文件夹路径
-                        </button>
-                        <button class="btn btn-secondary" onclick="portfolio.openInFileManager('${folderPath}')">
-                            🔧 在文件管理器中打开
-                        </button>
-                        <button class="btn btn-secondary" onclick="portfolio.showFolderContents('${folderPath}')">
-                            📖 查看文件夹内容
+    showProjectContent(folderPath, folderName) {
+        // 显示项目内容模态框
+        const modal = document.getElementById('project-modal');
+        const modalContent = document.getElementById('modal-content');
+        
+        // 先显示加载状态
+        modalContent.innerHTML = `
+            <div class="project-content-loading">
+                <h3>📖 正在加载项目内容...</h3>
+                <div class="loading-spinner"></div>
+            </div>
+        `;
+        modal.style.display = 'block';
+        
+        // 读取README.md内容
+        fetch(folderPath + '/README.md')
+            .then(response => response.text())
+            .then(content => {
+                // 将Markdown内容转换为HTML（简单处理）
+                const htmlContent = this.convertMarkdownToHtml(content);
+                
+                modalContent.innerHTML = `
+                    <div class="project-content-view">
+                        <div class="content-header">
+                            <h2>📖 ${folderName}</h2>
+                            <button class="btn btn-secondary" onclick="portfolio.closeModal()">
+                                <span class="btn-icon">✕</span>
+                                关闭
+                            </button>
+                        </div>
+                        <div class="content-body">
+                            <div class="readme-content">
+                                ${htmlContent}
+                            </div>
+                        </div>
+                        <div class="content-footer">
+                            <button class="btn btn-primary" onclick="portfolio.showFolderStructure('${folderPath}')">
+                                <span class="btn-icon">📁</span>
+                                查看文件结构
+                            </button>
+                            <button class="btn btn-secondary" onclick="portfolio.closeModal()">
+                                <span class="btn-icon">←</span>
+                                返回项目详情
+                            </button>
+                        </div>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                console.error('Error loading project content:', error);
+                modalContent.innerHTML = `
+                    <div class="project-content-error">
+                        <h3>❌ 加载失败</h3>
+                        <p>无法加载项目内容：${error.message}</p>
+                        <button class="btn btn-secondary" onclick="portfolio.closeModal()">
+                            <span class="btn-icon">✕</span>
+                            关闭
                         </button>
                     </div>
-                </div>
-            `;
-            
-            this.showCustomModal('文件夹导航', message);
-        } catch (error) {
-            console.error('Error navigating to folder:', error);
-            this.showFolderNotFoundMessage(folderPath.split('/').pop());
-        }
+                `;
+            });
+    }
+    
+    convertMarkdownToHtml(markdown) {
+        // 简单的Markdown转HTML转换
+        return markdown
+            // 标题
+            .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+            .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+            .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+            // 粗体和斜体
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            // 代码块
+            .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+            .replace(/`([^`]+)`/g, '<code>$1</code>')
+            // 链接
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+            // 列表
+            .replace(/^\* (.*$)/gim, '<li>$1</li>')
+            .replace(/^- (.*$)/gim, '<li>$1</li>')
+            // 段落
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/^(?!<[h|li|pre|ul|ol]).*$/gm, '<p>$&</p>')
+            // 清理多余的标签
+            .replace(/<p><\/p>/g, '')
+            .replace(/<p>(<[h|li|pre|ul|ol])/g, '$1')
+            .replace(/(<\/[h|li|pre|ul|ol]>)<\/p>/g, '$1');
     }
     
     copyFolderPath(folderPath) {
@@ -405,6 +464,54 @@ class ResearchPortfolio {
         } catch (error) {
             this.showToast('无法自动打开文件管理器，请手动导航到: ' + folderPath, 'info');
         }
+    }
+    
+    showFolderStructure(folderPath) {
+        // 显示文件夹结构
+        const modal = document.getElementById('project-modal');
+        const modalContent = document.getElementById('modal-content');
+        
+        modalContent.innerHTML = `
+            <div class="folder-structure-view">
+                <div class="content-header">
+                    <h2>📁 文件结构</h2>
+                    <button class="btn btn-secondary" onclick="portfolio.closeModal()">
+                        <span class="btn-icon">✕</span>
+                        关闭
+                    </button>
+                </div>
+                <div class="content-body">
+                    <div class="folder-tree">
+                        <div class="folder-item">
+                            <span class="folder-icon">📁</span>
+                            <span class="folder-name">${folderPath.split('/').pop()}</span>
+                        </div>
+                        <div class="file-item">
+                            <span class="file-icon">📄</span>
+                            <span class="file-name">README.md</span>
+                        </div>
+                        <div class="file-item">
+                            <span class="file-icon">📄</span>
+                            <span class="file-name">项目文档</span>
+                        </div>
+                        <div class="file-item">
+                            <span class="file-icon">📄</span>
+                            <span class="file-name">技术方案</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-footer">
+                    <button class="btn btn-primary" onclick="portfolio.viewProjectContent('${folderPath.split('/').pop()}')">
+                        <span class="btn-icon">📖</span>
+                        返回项目内容
+                    </button>
+                    <button class="btn btn-secondary" onclick="portfolio.closeModal()">
+                        <span class="btn-icon">✕</span>
+                        关闭
+                    </button>
+                </div>
+            </div>
+        `;
     }
     
     async showFolderContents(folderPath) {

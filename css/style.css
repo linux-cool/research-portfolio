@@ -754,3 +754,188 @@ body {
 .toast.error {
     background: #ef4444;
 }
+
+/* Project Content View Styles */
+.project-content-loading {
+    text-align: center;
+    padding: 2rem;
+}
+
+.project-content-loading h3 {
+    color: #1f2937;
+    margin-bottom: 1rem;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e5e7eb;
+    border-top: 4px solid #2563eb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+.project-content-view {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 1rem;
+}
+
+.content-header h2 {
+    color: #1f2937;
+    margin: 0;
+}
+
+.content-body {
+    margin-bottom: 1.5rem;
+}
+
+.readme-content {
+    line-height: 1.7;
+    color: #374151;
+}
+
+.readme-content h1,
+.readme-content h2,
+.readme-content h3 {
+    color: #1f2937;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.readme-content h1 {
+    font-size: 1.5rem;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+}
+
+.readme-content h2 {
+    font-size: 1.3rem;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.3rem;
+}
+
+.readme-content h3 {
+    font-size: 1.1rem;
+}
+
+.readme-content p {
+    margin-bottom: 1rem;
+}
+
+.readme-content ul,
+.readme-content ol {
+    margin: 1rem 0 1rem 2rem;
+}
+
+.readme-content li {
+    margin-bottom: 0.5rem;
+}
+
+.readme-content code {
+    background: #f3f4f6;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9em;
+}
+
+.readme-content pre {
+    background: #1f2937;
+    color: #f9fafb;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.readme-content pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+.readme-content a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.readme-content a:hover {
+    text-decoration: underline;
+}
+
+.content-footer {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.project-content-error {
+    text-align: center;
+    padding: 2rem;
+}
+
+.project-content-error h3 {
+    color: #dc2626;
+    margin-bottom: 1rem;
+}
+
+.project-content-error p {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+/* Folder Structure View Styles */
+.folder-structure-view {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.folder-tree {
+    padding: 1rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.folder-item,
+.file-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.folder-item:last-child,
+.file-item:last-child {
+    border-bottom: none;
+}
+
+.folder-icon,
+.file-icon {
+    font-size: 1.2rem;
+    width: 24px;
+    text-align: center;
+}
+
+.folder-name,
+.file-name {
+    color: #374151;
+    font-weight: 500;
+}
+
+.folder-name {
+    color: #1f2937;
+    font-weight: 600;
+}
