@@ -1,0 +1,145 @@
+# Default values for ffmpeg-service
+# This is a YAML-formatted file.
+
+# 全局配置
+global:
+  imageRegistry: ""
+  imagePullSecrets: []
+  storageClass: ""
+
+# 镜像配置
+image:
+  registry: docker.io
+  repository: research/ffmpeg-service
+  tag: "1.0.0"
+  pullPolicy: IfNotPresent
+
+# 副本配置
+replicaCount: 3
+
+# 服务配置
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+  annotations: {}
+
+# 资源限制
+resources:
+  limits:
+    cpu: 2000m
+    memory: 4Gi
+  requests:
+    cpu: 500m
+    memory: 1Gi
+
+# 自动扩缩容
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+# 探针配置
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+# 环境变量
+env:
+  - name: LOG_LEVEL
+    value: "info"
+  - name: MAX_WORKERS
+    value: "4"
+  - name: QUEUE_TIMEOUT
+    value: "300"
+
+# 持久化存储
+persistence:
+  enabled: true
+  storageClass: "fast-ssd"
+  accessMode: ReadWriteOnce
+  size: 100Gi
+  mountPath: /data
+
+# 配置映射
+configMap:
+  enabled: true
+  data:
+    ffmpeg.conf: |
+      [general]
+      threads=0
+      loglevel=info
+      
+      [encoding]
+      preset=medium
+      crf=23
+      
+      [performance]
+      gpu_enabled=true
+      max_memory=2GB
+
+# 密钥管理
+secrets:
+  enabled: false
+  data: {}
+
+# 网络策略
+networkPolicy:
+  enabled: true
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: ffmpeg-namespace
+      ports:
+        - protocol: TCP
+          port: 8080
+
+# 节点亲和性
+nodeAffinity:
+  enabled: false
+  nodeSelector: {}
+  tolerations: []
+
+# 监控配置
+monitoring:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    interval: 30s
+    path: /metrics
+    labels:
+      release: prometheus
+
+# 日志配置
+logging:
+  enabled: true
+  fluentBit:
+    enabled: true
+    config:
+      output: elasticsearch
+      host: elasticsearch.logging.svc.cluster.local
+      port: 9200
+
+# 测试配置
+tests:
+  enabled: true
+  image:
+    repository: research/ffmpeg-test
+    tag: "1.0.0"

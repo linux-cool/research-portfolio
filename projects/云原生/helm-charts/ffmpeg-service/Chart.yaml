@@ -1,0 +1,17 @@
+apiVersion: v2
+name: ffmpeg-service
+description: FFmpeg-based cloud-native video processing service
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - ffmpeg
+  - video-processing
+  - cloud-native
+  - kubernetes
+home: https://github.com/research-portfolio/ffmpeg-cloud-native
+sources:
+  - https://github.com/research-portfolio/ffmpeg-cloud-native
+maintainers:
+  - name: Research Team
+    email: research@example.com
