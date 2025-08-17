@@ -66,6 +66,7 @@ add_subdirectory(第三章_FFmpeg_AVFrame渲染)
 add_subdirectory(第四章_FFmpeg像素格式转换和多路YUV_RGB渲染)
 add_subdirectory(第五章_FFmpeg视频编码)
 add_subdirectory(第六章_FFmpeg软硬解码)
+add_subdirectory(第七章_FFmpeg封装解封装)
 
 # TODO: 添加其他章节
 # add_subdirectory(第四章_FFmpeg像素格式转换和多路YUV_RGB渲染)
