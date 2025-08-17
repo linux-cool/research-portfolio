@@ -13,6 +13,9 @@ else()
     add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+# 编译选项
+option(BUILD_TESTS "Build test programs" ON)
+
 # 设置构建类型
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
@@ -67,6 +70,7 @@ add_subdirectory(第四章_FFmpeg像素格式转换和多路YUV_RGB渲染)
 add_subdirectory(第五章_FFmpeg视频编码)
 add_subdirectory(第六章_FFmpeg软硬解码)
 add_subdirectory(第七章_FFmpeg封装解封装)
+add_subdirectory(第八章_RTSP录制)
 
 # TODO: 添加其他章节
 # add_subdirectory(第四章_FFmpeg像素格式转换和多路YUV_RGB渲染)
