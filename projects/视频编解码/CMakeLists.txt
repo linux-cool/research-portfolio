@@ -64,6 +64,7 @@ add_subdirectory(common)
 add_subdirectory(第二章_图像格式基于QT_SDL渲染)
 add_subdirectory(第三章_FFmpeg_AVFrame渲染)
 add_subdirectory(第四章_FFmpeg像素格式转换和多路YUV_RGB渲染)
+add_subdirectory(第五章_FFmpeg视频编码)
 
 # TODO: 添加其他章节
 # add_subdirectory(第四章_FFmpeg像素格式转换和多路YUV_RGB渲染)
